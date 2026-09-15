@@ -1686,7 +1686,7 @@
     }
   ],
   "shutdown_dose": {
-    "model": "semi-infinite slab self-dose: phi_s(E)=S_v(E)/(2 mu(E)); H=sum phi_s*h_ICRP74_AP; units uSv/h; contact estimate not 3-D transport",
+    "model": "semi-infinite slab self-dose: phi_s(E)=S_v(E)/(2 mu(E)); H=sum phi_s*h_ICRP116_AP_effective; units uSv/h; contact estimate not 3-D transport",
     "per_region": {
       "FW": {
         "shutdown": {

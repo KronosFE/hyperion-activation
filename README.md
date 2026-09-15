@@ -82,8 +82,9 @@ estimates, not a 3-D photon-transport dose map.** Each component is treated as a
 homogeneous slab with a uniform volumetric decay-photon source S_v(E); the surface scalar flux is
 φ_s(E) = S_v(E) / (2 µ(E)), with µ(E) the material's own total photon attenuation coefficient
 (coherent + incoherent + photoelectric + pair, ENDF/B-VIII.0 photon data) supplying self-shielding;
-the ambient dose rate is H = Σ φ_s(E)·h(E) with h(E) the ICRP-74 photon fluence-to-ambient-dose (AP)
-coefficient. This is the standard R2S contact/self-dose approximation and **assumes an infinite
+the dose rate is H = Σ φ_s(E)·h(E) with h(E) the ICRP-116 photon fluence-to-effective-dose (AP)
+coefficient (the `openmc.data.dose_coefficients` default: `data_source='icrp116'`,
+`dose_quantity='effective'`). This is the standard R2S contact/self-dose approximation and **assumes an infinite
 uniform source with no geometric attenuation, ducts, streaming or shine** — a bounding surface
 estimate, not a room dose map. Decay-heat descends on the standard curve (see `results/`).
 

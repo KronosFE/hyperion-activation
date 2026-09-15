@@ -8,7 +8,7 @@ Contact-dose model (stated first-order estimate, NOT a 3-D transport map):
   A component is treated as a semi-infinite homogeneous slab with a uniform volumetric decay-photon
   source S_v(E) [photons/s/cm3]. The surface scalar flux is phi_s(E) = S_v(E) / (2 mu(E)), where mu(E)
   is the material's total photon attenuation coefficient [1/cm] (self-shielding). The contact ambient
-  dose rate is H = sum_E phi_s(E) * h(E), with h(E) the ICRP-74 photon fluence-to-ambient-dose-equivalent
+  dose rate is H = sum_E phi_s(E) * h(E), with h(E) the ICRP-116 photon fluence-to-effective-dose
   coefficient (AP) [pSv*cm2]. This is the standard R2S contact/self-dose approximation.
 """
 import openmc, openmc.deplete, openmc.data, os, json, csv, numpy as np
@@ -20,7 +20,7 @@ openmc.config['chain_file']=os.environ["OPENMC_CHAIN"]
 DENS={"FW":7.70,"BLK_front":7.70,"BLK_mid":7.70,"BLK_back":7.70,"DIV":9.5}
 IDX={12:"shutdown",13:"1d",14:"1wk",15:"1mo",16:"1yr",17:"10yr",18:"100yr",19:"1000yr"}
 
-# ICRP-74 photon flux-to-ambient-dose (AP), pSv*cm2
+# ICRP-116 photon fluence-to-effective-dose (AP), pSv*cm2 (openmc default: data_source='icrp116', dose_quantity='effective')
 de,dc=openmc.data.dose_coefficients('photon',geometry='AP')
 de=np.asarray(de); dc=np.asarray(dc)
 
@@ -78,7 +78,7 @@ with open(os.path.join(RES,"shutdown_dose.csv"),"w",newline="") as f:
     for r in rows: w.writerow([r[0],r[1],f"{r[2]:.4e}",f"{r[3]:.4e}"])
 
 jp=os.path.join(RES,"designspec_results.json"); d=json.load(open(jp))
-d["shutdown_dose"]={"model":"semi-infinite slab self-dose: phi_s(E)=S_v(E)/(2 mu(E)); H=sum phi_s*h_ICRP74_AP; units uSv/h; contact estimate not 3-D transport",
+d["shutdown_dose"]={"model":"semi-infinite slab self-dose: phi_s(E)=S_v(E)/(2 mu(E)); H=sum phi_s*h_ICRP116_AP_effective; units uSv/h; contact estimate not 3-D transport",
                     "per_region":block}
 json.dump(d,open(jp,"w"),indent=2,default=float)
 print("SHUTDOWN DOSE DONE",flush=True)

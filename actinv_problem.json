@@ -36,7 +36,7 @@
     "quantity": "decay-photon (gamma) source spectrum per region per cooling time, and a contact / surface dose-rate estimate",
     "model": "semi-infinite homogeneous slab self-dose: surface scalar flux phi_s(E)=S_v(E)/(2*mu(E)); ambient dose H=sum_E phi_s(E)*h(E)",
     "mu": "total photon attenuation coefficient (coherent+incoherent+photoelectric+pair) from ENDF/B-VIII.0 photon data, computed from the depleted composition (self-shielding)",
-    "dose_coefficients": "ICRP-74 photon fluence-to-ambient-dose-equivalent, AP geometry (openmc.data.dose_coefficients)",
+    "dose_coefficients": "ICRP-116 photon fluence-to-effective-dose, AP geometry (openmc.data.dose_coefficients default: data_source=icrp116, dose_quantity=effective)",
     "photon_source_basis": "photons/s per cm3 (specific/volume=1 basis), from mat.get_decay_photon_energy() on the depleted inventory",
     "dose_units": "uSv/h",
     "fidelity": "first-order CONTACT/self-dose estimate; NOT a 3-D photon-transport dose map; assumes infinite uniform source with no geometric attenuation, ducts, streaming or shine",
