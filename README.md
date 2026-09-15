@@ -42,7 +42,10 @@ impurity spec** — a normal QA / procurement requirement.
 OpenMC fixed-source **transport** of a 1-D multi-region slab (first wall 0–2 cm, blanket 2–30 cm,
 divertor), 14.06 MeV surface source, 100 batches × 2×10⁵ particles → per-region energy-binned flux
 (300-group). Each region is **depleted** for 2 full-power-years at its own local flux on the **full
-ENDF/B-VIII.0 depletion chain**, then decayed through the cooling set. Per-component classification
+ENDF/B-VIII.0 depletion chain**, then decayed through the cooling set. The one-group cross sections are
+**collapsed from each region's own local spectrum** (the divertor, not resolved in this 1-D slab, uses
+the first-wall shape); the blanket spectrum is softer than the first wall, which raises Nb-93(n,γ)→Nb-94,
+so per-region collapse is used rather than a single representative spectrum. Per-component classification
 uses **U.S. 10 CFR 61 §61.55** (Class A / C / GTCC) on the principal fusion nuclides
 (C-14, Ni-59, Ni-63, Nb-94, Tc-99, Sr-90, Cs-137, I-129); IAEA-style residuals are tracked in the
 long-lived breakout. **Honest fidelity:** this is an ENDF/B-VIII.0 OpenMC R2S, not FISPACT-II;
@@ -51,13 +54,18 @@ nitrogen is carried as a controlled impurity and its C-14 channel is resolved as
 ## 4. Result
 
 **Every component classifies at or below Class C at 100 yr — no greater-than-Class-C (GTCC) waste —
-with an order-of-magnitude margin, and this holds robustly across nitrogen 10–100 wppm.**
+with roughly a six-fold margin, and this holds robustly across nitrogen 10–100 wppm.**
 
-| Component | 100-yr Class-C index | Class |
+| Component | 100-yr Class-C index (N 10–100 wppm) | Class |
 |---|---|---|
-| First wall | 0.07 | **Class C** |
-| Blanket (front/mid/back) | 0.05–0.10 | **Class C** |
-| Divertor | 0.09 | **Class C** |
+| First wall | 0.06–0.08 | **Class C** |
+| Blanket front | 0.12–0.15 | **Class C** |
+| Blanket mid | 0.15–0.17 | **Class C** |
+| Blanket back | 0.08–0.09 | **Class C** |
+| Divertor | 0.08–0.10 | **Class C** |
+
+The blanket carries the highest index (Nb-94 built up in the softer local spectrum); the worst case,
+0.17, still sits ~6× below the Class-C boundary.
 
 The result is a **computed consequence of the copper-, molybdenum-, tantalum- and rhenium-free
 composition**: the Class-C index is governed by Nb-94 (trace Nb impurity) with C-14 (trace nitrogen)
@@ -70,13 +78,14 @@ The dose descends by ~9 orders of magnitude across the cooling set:
 
 | Cooling time | Contact dose rate (µSv/h) | Note |
 |---|---|---|
-| Shutdown | ~6 × 10⁹ – 1.4 × 10¹⁰ | remote handling only (peak: blanket front) |
-| 1 yr | ~5 – 12 × 10⁷ | still remote-only |
-| 10 yr | ~5 – 12 × 10⁴ | |
-| 100 yr | ~17 – 54 | approaching hands-on range |
-| 1000 yr | ~7 – 15 | low-level residual (Nb-94 photons) |
+| Shutdown | ~2.5 × 10⁹ – 1.0 × 10¹⁰ | remote handling only (peak: first wall) |
+| 1 yr | ~1 – 9 × 10⁷ | still remote-only |
+| 10 yr | ~2 – 8 × 10⁴ | |
+| 100 yr | ~19 – 37 | approaching hands-on range |
+| 1000 yr | ~10 – 27 | low-level residual (Nb-94 photons) |
 
-Contact dose is highest at the **blanket front** (highest neutron flux) and lower at the divertor
+At shutdown the **first wall** dominates the contact dose; by 100–1000 yr the **blanket** carries the
+highest residual (Nb-94 photons built up in its softer local spectrum), with the divertor lower
 (tungsten self-shielding). **Honest fidelity:** these are **first-order CONTACT / self-dose
 estimates, not a 3-D photon-transport dose map.** Each component is treated as a semi-infinite
 homogeneous slab with a uniform volumetric decay-photon source S_v(E); the surface scalar flux is

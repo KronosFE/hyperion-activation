@@ -77,9 +77,14 @@ YR=365.25*86400.0; DAY=86400.0
 irr_sub=12; irr=[2*YR/irr_sub]*irr_sub                       # 2 FPY
 cool_pts=[DAY,7*DAY,30*DAY,YR,10*YR,100*YR,1000*YR]; cool=[cool_pts[0]]+list(np.diff(cool_pts)); steps=irr+cool
 IDX={12:"shutdown",13:"1d",14:"1wk",15:"1mo",16:"1yr",17:"10yr",18:"100yr",19:"1000yr"}
-mxf="micro.h5"; phi_fw,_=region_flux["FW"]
-micro=openmc.deplete.MicroXS.from_multigroup_flux(energies=egrid,multigroup_flux=phi_fw,chain_file=CHAIN,temperature=294)
-micro.to_hdf5(mxf)
+# per-region one-group collapse: collapse the cross sections from EACH region's own local spectrum
+# (the divertor, not resolved in this 1-D slab, uses the first-wall shape). The blanket spectrum is
+# softer than the first wall, which raises Nb-93(n,gamma)->Nb-94, so a single-spectrum collapse would
+# understate the blanket long-lived index; per-region collapse is the rigorous treatment.
+micro={}
+for _nm in ["FW","BLK_front","BLK_mid","BLK_back","DIV"]:
+    _phi = region_flux["FW"][0] if _nm=="DIV" else region_flux[_nm][0]
+    micro[_nm]=openmc.deplete.MicroXS.from_multigroup_flux(energies=egrid,multigroup_flux=_phi,chain_file=CHAIN,temperature=294)
 
 def spec_activity_by_nuc(r,mat,idx,mass_g):
     out={}
@@ -98,7 +103,7 @@ for N_wppm in [10,50,100]:
     _,_,_,mm=build(N_wppm); rows=[]
     for nm,mat in mm.items():
         dens=DENS[nm]; phi,phi_tot=region_flux["FW"] if nm=="DIV" else region_flux[nm]; mat.volume=1.0
-        op=openmc.deplete.IndependentOperator(openmc.Materials([mat]),[np.array([1.0])],[micro],
+        op=openmc.deplete.IndependentOperator(openmc.Materials([mat]),[np.array([1.0])],[micro[nm]],
             chain_file=CHAIN,normalization_mode='source-rate',reduce_chain_level=6)
         sr=[phi_tot]*irr_sub+[0.0]*len(cool)
         dpath=f"dep_{nm}_N{N_wppm}.h5"

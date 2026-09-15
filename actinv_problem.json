@@ -40,17 +40,18 @@
     "photon_source_basis": "photons/s per cm3 (specific/volume=1 basis), from mat.get_decay_photon_energy() on the depleted inventory",
     "dose_units": "uSv/h",
     "fidelity": "first-order CONTACT/self-dose estimate; NOT a 3-D photon-transport dose map; assumes infinite uniform source with no geometric attenuation, ducts, streaming or shine",
+    "spectral_collapse": "one-group cross sections collapsed from each region's own local spectrum (divertor uses the first-wall shape); blanket decay-photon source therefore reflects the softer local blanket spectrum",
     "reference_values_contact_dose_uSv_per_h": {
-      "shutdown": {"FW": 9.965e9, "BLK_front": 1.392e10, "BLK_mid": 1.287e10, "BLK_back": 6.495e9, "DIV": 6.446e9},
-      "1 yr":     {"FW": 8.694e7, "BLK_front": 1.233e8,  "BLK_mid": 1.135e8,  "BLK_back": 5.590e7, "DIV": 4.711e7},
-      "10 yr":    {"FW": 8.371e4, "BLK_front": 1.165e5,  "BLK_mid": 1.078e5,  "BLK_back": 5.474e4, "DIV": 8.300e4},
-      "100 yr":   {"FW": 32.1,    "BLK_front": 54.2,     "BLK_mid": 47.8,     "BLK_back": 17.0,    "DIV": 22.3},
-      "1000 yr":  {"FW": 10.6,    "BLK_front": 14.8,     "BLK_mid": 13.7,     "BLK_back": 6.97,    "DIV": 10.3}
+      "shutdown": {"FW": 9.965e9, "BLK_front": 8.408e9, "BLK_mid": 5.525e9, "BLK_back": 2.505e9, "DIV": 6.446e9},
+      "1 yr":     {"FW": 8.694e7, "BLK_front": 6.452e7, "BLK_mid": 3.027e7, "BLK_back": 1.076e7, "DIV": 4.711e7},
+      "10 yr":    {"FW": 8.371e4, "BLK_front": 6.627e4, "BLK_mid": 3.892e4, "BLK_back": 1.698e4, "DIV": 8.300e4},
+      "100 yr":   {"FW": 32.1,    "BLK_front": 36.9,    "BLK_mid": 36.5,    "BLK_back": 19.1,    "DIV": 22.3},
+      "1000 yr":  {"FW": 10.6,    "BLK_front": 21.8,    "BLK_mid": 26.5,    "BLK_back": 14.3,    "DIV": 10.3}
     },
     "files": ["results/shutdown_dose.csv", "results/designspec_results.json (shutdown_dose block)"]
   },
   "kronos_reference_results": {
-    "waste_class": "All components <= Class C at 100 yr, no GTCC; 100-yr Class-C index 0.05-0.11 (10x below boundary), robust across N 10-100 wppm",
+    "waste_class": "All components <= Class C at 100 yr, no GTCC; 100-yr Class-C index 0.06-0.17 (>=6x below boundary; blanket highest via Nb-94 in the softer local spectrum), robust across N 10-100 wppm",
     "class_C_drivers": ["Nb94 (trace Nb)", "C14 (trace N)"],
     "condition": "conditional on the impurity spec above",
     "files": ["results/classC_by_N.csv", "results/designspec_results.json"]
