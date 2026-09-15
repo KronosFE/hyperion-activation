@@ -1,0 +1,41 @@
+{
+  "_comment": "ACTINV problem definition — HYPERION breeder activation at the qualified low-activation design alloy. Flux imported from the OpenMC statepoint; this file pins materials, schedule, normalization, and the 10 CFR 61 classification basis.",
+  "meta": {
+    "title": "HYPERION breeder — first wall / blanket / divertor activation & waste class",
+    "machine": "HYPERION spherical-tokamak breeder (D-T)",
+    "alloy_design": "Cr-Ti-V-W low-activation family (Ta-, Re-, Cu-, Mo-free); DOI 10.5281/zenodo.22645891",
+    "date": "2026-09-15"
+  },
+  "normalization": {
+    "P_fus_MW": 85.04, "neutron_energy_MeV": 14.06, "neutron_source_rate_n_per_s": 3.017e19,
+    "wall_loading_MW_m2": 1.885, "phi_FW_n_cm2_s": 2.72e14
+  },
+  "flux": {
+    "import": "openmc", "statepoint": "results/statepoint.100.h5", "spectrum_json": "results/flux_actinv.json",
+    "energy_grid": "300-group log 0.01 eV - 20 MeV (results/egrid.npy)",
+    "regions": ["FW", "BLK_front", "BLK_mid", "BLK_back", "DIV"]
+  },
+  "materials": {
+    "source_of_truth": "openmc_deck/materials.xml",
+    "first_wall_blanket": {"alloy": "Cr1Ti7V4W4", "at_pct": {"Cr": 6.25, "Ti": 43.75, "V": 25.0, "W": 25.0}, "density_g_cm3": 7.70},
+    "divertor": {"alloy": "Cr2Ti4V4W6", "at_pct": {"Cr": 12.5, "Ti": 25.0, "V": 25.0, "W": 37.5}, "density_g_cm3": 9.50},
+    "impurity_spec_wppm": {"Nb": 5, "Mo": 50, "Co": 10, "Ni": 100, "Cu": 10, "Ag": 5, "Zr": 10, "N": 50},
+    "note": "Waste class is conditional on meeting this impurity spec (procurement/QA requirement)."
+  },
+  "schedule": {
+    "irradiation": {"duration": "2 full-power-years", "source_rate_n_per_s": 3.017e19, "substeps": 12},
+    "cooling_times": ["shutdown", "1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr", "1000 yr"]
+  },
+  "classification": {
+    "framework": "U.S. 10 CFR 61 §61.55 (Class A / C / GTCC)",
+    "nuclides": ["C14", "Ni59", "Ni63", "Nb94", "Tc99", "Sr90", "Cs137", "I129"],
+    "long_lived_watchlist": ["C14", "Nb94", "Ni63", "Zr93", "Mo93", "Ag108_m1", "Mn53", "Tc99"]
+  },
+  "nuclear_data": {"transport_and_depletion": "ENDF/B-VIII.0 (full HDF5 library + full depletion chain)"},
+  "kronos_reference_results": {
+    "waste_class": "All components <= Class C at 100 yr, no GTCC; 100-yr Class-C index 0.05-0.11 (10x below boundary), robust across N 10-100 wppm",
+    "class_C_drivers": ["Nb94 (trace Nb)", "C14 (trace N)"],
+    "condition": "conditional on the impurity spec above",
+    "files": ["results/classC_by_N.csv", "results/designspec_results.json"]
+  }
+}
