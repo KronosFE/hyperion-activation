@@ -61,9 +61,31 @@ with an order-of-magnitude margin, and this holds robustly across nitrogen 10–
 
 The result is a **computed consequence of the copper-, molybdenum-, tantalum- and rhenium-free
 composition**: the Class-C index is governed by Nb-94 (trace Nb impurity) with C-14 (trace nitrogen)
-second; both sit far below the regulatory boundary. Decay-heat and shutdown-dose descend on the
-standard curve (see `results/`). The waste class is **conditional on the stated impurity spec**;
-tighter Nb (≤ 1 wppm) and N (≤ 10 wppm) increase the margin further.
+second; both sit far below the regulatory boundary. The waste class is **conditional on the stated
+impurity spec**; tighter Nb (≤ 1 wppm) and N (≤ 10 wppm) increase the margin further.
+
+**Shutdown dose (contact / self-dose estimate).** From the same inventories we derive the decay-photon
+source per region per cooling time and a **contact surface dose rate** (`results/shutdown_dose.csv`).
+The dose descends by ~9 orders of magnitude across the cooling set:
+
+| Cooling time | Contact dose rate (µSv/h) | Note |
+|---|---|---|
+| Shutdown | ~6 × 10⁹ – 1.4 × 10¹⁰ | remote handling only (peak: blanket front) |
+| 1 yr | ~5 – 12 × 10⁷ | still remote-only |
+| 10 yr | ~5 – 12 × 10⁴ | |
+| 100 yr | ~17 – 54 | approaching hands-on range |
+| 1000 yr | ~7 – 15 | low-level residual (Nb-94 / C-14 photons) |
+
+Contact dose is highest at the **blanket front** (highest neutron flux) and lower at the divertor
+(tungsten self-shielding). **Honest fidelity:** these are **first-order CONTACT / self-dose
+estimates, not a 3-D photon-transport dose map.** Each component is treated as a semi-infinite
+homogeneous slab with a uniform volumetric decay-photon source S_v(E); the surface scalar flux is
+φ_s(E) = S_v(E) / (2 µ(E)), with µ(E) the material's own total photon attenuation coefficient
+(coherent + incoherent + photoelectric + pair, ENDF/B-VIII.0 photon data) supplying self-shielding;
+the ambient dose rate is H = Σ φ_s(E)·h(E) with h(E) the ICRP-74 photon fluence-to-ambient-dose (AP)
+coefficient. This is the standard R2S contact/self-dose approximation and **assumes an infinite
+uniform source with no geometric attenuation, ducts, streaming or shine** — a bounding surface
+estimate, not a room dose map. Decay-heat descends on the standard curve (see `results/`).
 
 ## 5. Files
 
@@ -73,7 +95,8 @@ actinv_problem.json           ACTINV problem definition (materials + flux + sche
 openmc_deck/                  materials.xml · geometry.xml · settings.xml · tallies.xml
 results/                      statepoint.100.h5 (energy-binned flux) · egrid.npy · flux_actinv.json
                               · dep_*_N50.h5 inventories · classC_by_N.csv · designspec_results.json
-scripts/                      r2s_design_spec.py (reproduce)
+                              · shutdown_dose.csv (decay-photon source + contact dose per region/cooling)
+scripts/                      r2s_design_spec.py · compute_shutdown_dose.py (reproduce)
 ```
 
 ## 6. Reproduce / ingest
@@ -82,10 +105,15 @@ scripts/                      r2s_design_spec.py (reproduce)
 # conda create -n openmc -c conda-forge openmc   (0.16.x)
 export OPENMC_CROSS_SECTIONS=/path/to/endfb-viii.0-hdf5/cross_sections.xml
 export OPENMC_CHAIN=/path/to/chain_endfb80.xml
-python scripts/r2s_design_spec.py
+python scripts/r2s_design_spec.py         # transport + depletion + waste class
+python scripts/compute_shutdown_dose.py   # decay-photon source + contact dose (reads dep_*_N50.h5)
 actinv import-flux openmc results/statepoint.100.h5
 actinv run actinv_problem.json
 ```
+
+The transport + depletion + waste-class + shutdown-dose chain runs end-to-end on a single
+workstation CPU (no cluster, no GPU); the shutdown-dose back-end is post-processing of the existing
+inventories and completes in seconds.
 
 Nuclear data: transport + depletion on **ENDF/B-VIII.0** (full HDF5 library + full depletion chain).
 

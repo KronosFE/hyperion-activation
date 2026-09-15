@@ -1684,5 +1684,180 @@
       "Zr93_Ci_m3": 0.00033336017407614103,
       "top_classC": "Nb94:0.069;C14:0.024;Tc99:0.003;Ni59:0.000"
     }
-  ]
+  ],
+  "shutdown_dose": {
+    "model": "semi-infinite slab self-dose: phi_s(E)=S_v(E)/(2 mu(E)); H=sum phi_s*h_ICRP74_AP; units uSv/h; contact estimate not 3-D transport",
+    "per_region": {
+      "FW": {
+        "shutdown": {
+          "photon_src_per_s_cm3": 1346060581705.3093,
+          "contact_dose_uSv_h": 9965311161.826195
+        },
+        "1d": {
+          "photon_src_per_s_cm3": 1027192463040.7195,
+          "contact_dose_uSv_h": 6283435248.383102
+        },
+        "1wk": {
+          "photon_src_per_s_cm3": 733998398531.8035,
+          "contact_dose_uSv_h": 2111608368.3948414
+        },
+        "1mo": {
+          "photon_src_per_s_cm3": 603415615923.1487,
+          "contact_dose_uSv_h": 1363560082.4076688
+        },
+        "1yr": {
+          "photon_src_per_s_cm3": 79982740371.30864,
+          "contact_dose_uSv_h": 86942692.32816042
+        },
+        "10yr": {
+          "photon_src_per_s_cm3": 26147262.76797984,
+          "contact_dose_uSv_h": 83707.0995345593
+        },
+        "100yr": {
+          "photon_src_per_s_cm3": 16442.773678938887,
+          "contact_dose_uSv_h": 32.0985897174014
+        },
+        "1000yr": {
+          "photon_src_per_s_cm3": 9834.223946815377,
+          "contact_dose_uSv_h": 10.630738215843502
+        }
+      },
+      "BLK_front": {
+        "shutdown": {
+          "photon_src_per_s_cm3": 1882845461678.4836,
+          "contact_dose_uSv_h": 13923135334.95349
+        },
+        "1d": {
+          "photon_src_per_s_cm3": 1436880217193.4338,
+          "contact_dose_uSv_h": 8801570166.62788
+        },
+        "1wk": {
+          "photon_src_per_s_cm3": 1027620927471.2422,
+          "contact_dose_uSv_h": 2995308449.132923
+        },
+        "1mo": {
+          "photon_src_per_s_cm3": 843301765916.3213,
+          "contact_dose_uSv_h": 1938749134.7638564
+        },
+        "1yr": {
+          "photon_src_per_s_cm3": 111196922432.20079,
+          "contact_dose_uSv_h": 123292895.08131382
+        },
+        "10yr": {
+          "photon_src_per_s_cm3": 36458438.73004119,
+          "contact_dose_uSv_h": 116507.0943186245
+        },
+        "100yr": {
+          "photon_src_per_s_cm3": 23209.457751544414,
+          "contact_dose_uSv_h": 54.179946934229825
+        },
+        "1000yr": {
+          "photon_src_per_s_cm3": 13689.836831160825,
+          "contact_dose_uSv_h": 14.759093038038
+        }
+      },
+      "BLK_mid": {
+        "shutdown": {
+          "photon_src_per_s_cm3": 1740202936916.3118,
+          "contact_dose_uSv_h": 12872269239.606543
+        },
+        "1d": {
+          "photon_src_per_s_cm3": 1328008625190.6,
+          "contact_dose_uSv_h": 8131760968.48552
+        },
+        "1wk": {
+          "photon_src_per_s_cm3": 949546450012.0364,
+          "contact_dose_uSv_h": 2758271207.675926
+        },
+        "1mo": {
+          "photon_src_per_s_cm3": 779594818596.2465,
+          "contact_dose_uSv_h": 1784234521.865019
+        },
+        "1yr": {
+          "photon_src_per_s_cm3": 102938231958.08186,
+          "contact_dose_uSv_h": 113544313.45695484
+        },
+        "10yr": {
+          "photon_src_per_s_cm3": 33722146.14086152,
+          "contact_dose_uSv_h": 107821.76576018786
+        },
+        "100yr": {
+          "photon_src_per_s_cm3": 21399.970339950156,
+          "contact_dose_uSv_h": 47.81281792732602
+        },
+        "1000yr": {
+          "photon_src_per_s_cm3": 12668.793237952648,
+          "contact_dose_uSv_h": 13.667955797809222
+        }
+      },
+      "BLK_back": {
+        "shutdown": {
+          "photon_src_per_s_cm3": 876365905640.5692,
+          "contact_dose_uSv_h": 6494731156.70058
+        },
+        "1d": {
+          "photon_src_per_s_cm3": 668735823666.8936,
+          "contact_dose_uSv_h": 4085666869.539722
+        },
+        "1wk": {
+          "photon_src_per_s_cm3": 477488358953.83264,
+          "contact_dose_uSv_h": 1357354971.656266
+        },
+        "1mo": {
+          "photon_src_per_s_cm3": 393167418542.2029,
+          "contact_dose_uSv_h": 874605202.1595138
+        },
+        "1yr": {
+          "photon_src_per_s_cm3": 52359361383.97587,
+          "contact_dose_uSv_h": 55902106.51355422
+        },
+        "10yr": {
+          "photon_src_per_s_cm3": 17082565.674476758,
+          "contact_dose_uSv_h": 54741.52309819064
+        },
+        "100yr": {
+          "photon_src_per_s_cm3": 10618.493072954529,
+          "contact_dose_uSv_h": 17.044483222910618
+        },
+        "1000yr": {
+          "photon_src_per_s_cm3": 6430.274225931776,
+          "contact_dose_uSv_h": 6.967586053183416
+        }
+      },
+      "DIV": {
+        "shutdown": {
+          "photon_src_per_s_cm3": 1650292626342.7764,
+          "contact_dose_uSv_h": 6445536757.277322
+        },
+        "1d": {
+          "photon_src_per_s_cm3": 1287026814754.6265,
+          "contact_dose_uSv_h": 3473562319.7236123
+        },
+        "1wk": {
+          "photon_src_per_s_cm3": 1026417407347.2793,
+          "contact_dose_uSv_h": 1132564519.223383
+        },
+        "1mo": {
+          "photon_src_per_s_cm3": 860288438150.3041,
+          "contact_dose_uSv_h": 723514573.6097192
+        },
+        "1yr": {
+          "photon_src_per_s_cm3": 118022771979.77563,
+          "contact_dose_uSv_h": 47105946.41614527
+        },
+        "10yr": {
+          "photon_src_per_s_cm3": 38723961.4824109,
+          "contact_dose_uSv_h": 82998.55100839381
+        },
+        "100yr": {
+          "photon_src_per_s_cm3": 19903.878397302375,
+          "contact_dose_uSv_h": 22.34544728406378
+        },
+        "1000yr": {
+          "photon_src_per_s_cm3": 12139.854520420975,
+          "contact_dose_uSv_h": 10.32161129726129
+        }
+      }
+    }
+  }
 }
