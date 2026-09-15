@@ -74,7 +74,7 @@ The dose descends by ~9 orders of magnitude across the cooling set:
 | 1 yr | ~5 – 12 × 10⁷ | still remote-only |
 | 10 yr | ~5 – 12 × 10⁴ | |
 | 100 yr | ~17 – 54 | approaching hands-on range |
-| 1000 yr | ~7 – 15 | low-level residual (Nb-94 / C-14 photons) |
+| 1000 yr | ~7 – 15 | low-level residual (Nb-94 photons) |
 
 Contact dose is highest at the **blanket front** (highest neutron flux) and lower at the divertor
 (tungsten self-shielding). **Honest fidelity:** these are **first-order CONTACT / self-dose
